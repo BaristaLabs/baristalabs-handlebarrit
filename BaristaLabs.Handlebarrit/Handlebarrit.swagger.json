@@ -1,0 +1,47 @@
+﻿{
+  "swagger": "2.0",
+  "info": {
+    "title": "Handlebarrit",
+    "description": "Apply data against a Handlebars template.",
+    "version": "1.0"
+  },
+  "host": "handlebarrit.azurewebsites.net",
+  "basePath": "/api/",
+  "schemes": [],
+  "consumes": [],
+  "produces": [],
+  "paths": {
+    "/process": {
+      "post": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "summary": "Process Template",
+        "operationId": "Process",
+        "description": "Mash the data into the template",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object"
+            },
+            "x-ms-visibility": "important"
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {},
+  "parameters": {},
+  "responses": {},
+  "securityDefinitions": {},
+  "security": [],
+  "tags": []
+}
