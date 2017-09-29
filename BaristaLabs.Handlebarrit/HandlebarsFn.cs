@@ -126,22 +126,15 @@ namespace BaristaLabs.Handlebarrit
 
                 var dt = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById(arguments[0].ToString()));
 
-                var format = "";
-                if (arguments.Length > 2)
-                {
-                    format = arguments[1] as string ?? "";
-                }
-
+                var format = arguments.ElementAtOrDefault(1) as string ?? "";
+ 
                 var culture = CultureInfo.GetCultureInfo(1033);
-                if (arguments.Length > 3)
+                var cultureName = arguments.ElementAtOrDefault(2) as string;
+                if (!String.IsNullOrEmpty(cultureName))
                 {
-                    var cultureName = arguments[2] as string;
-                    if (!string.IsNullOrEmpty(cultureName))
-                    {
-                        culture = new CultureInfo(cultureName);
-                    }
+                    culture = new CultureInfo(cultureName);
                 }
-
+                
                 writer.WriteSafeString(dt.ToString(format, culture));
             });
 
@@ -154,21 +147,14 @@ namespace BaristaLabs.Handlebarrit
 
                 var dt = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById(arguments[0].ToString()));
                 dt = dt.AddHours(int.Parse(arguments[1] as string));
-                
-                var format = "";
-                if (arguments.Length > 3)
-                {
-                    format = arguments[2] as string ?? "";
-                }
+
+                var format = arguments.ElementAtOrDefault(2) as string ?? "";
 
                 var culture = CultureInfo.GetCultureInfo(1033);
-                if (arguments.Length > 4)
+                var cultureName = arguments.ElementAtOrDefault(3) as string;
+                if (!String.IsNullOrEmpty(cultureName))
                 {
-                    var cultureName = arguments[3] as string;
-                    if (!string.IsNullOrEmpty(cultureName))
-                    {
-                        culture = new CultureInfo(cultureName);
-                    }
+                    culture = new CultureInfo(cultureName);
                 }
 
                 writer.WriteSafeString(dt.ToString(format, culture));
@@ -176,26 +162,20 @@ namespace BaristaLabs.Handlebarrit
 
             Handlebars.RegisterHelper("format", (writer, context, arguments) =>
             {
-                if (arguments.Length <= 1)
+                if (arguments.Length < 1)
                 {
                     throw new HandlebarsException("{{format}} helper must have at least one argument");
                 }
 
-                var format = "";
-                if (arguments.Length > 1)
-                {
-                    format = arguments[1] as string ?? "";
-                }
+                var format = arguments.ElementAtOrDefault(1) as string ?? "";
 
-                var culture = CultureInfo.InvariantCulture;
-                if (arguments.Length > 2)
+                var culture = CultureInfo.GetCultureInfo(1033);
+                var cultureName = arguments.ElementAtOrDefault(2) as string;
+                if (!String.IsNullOrEmpty(cultureName))
                 {
-                    var cultureName = arguments[2] as string;
-                    if (!string.IsNullOrEmpty(cultureName))
-                    {
-                        culture = new CultureInfo(cultureName);
-                    }
+                    culture = new CultureInfo(cultureName);
                 }
+                
 
                 var date = arguments[0] as DateTime?;
                 if (date.HasValue)
@@ -217,28 +197,26 @@ namespace BaristaLabs.Handlebarrit
                     throw new HandlebarsException("{{#eachBySort}} helper must have a least two arguments");
                 }
 
-                var order = arguments[1] as string;
-                if (order == null)
+                var propertyName = arguments.ElementAtOrDefault(1) as string;
+                if (String.IsNullOrWhiteSpace(propertyName))
                 {
-                    throw new HandlebarsException("Sort order must be specified as the second argument. E.g. {{#eachBySort . 'propertyName'}}");
+                    throw new HandlebarsException("Sort property name must be specified as the second argument. E.g. {{#eachBySort . 'propertyName'}}");
                 }
 
-                var ascending = true;
-                if (arguments.Length > 2)
+                var direction = arguments.ElementAtOrDefault(2) as string ?? "asc";
+                var ascending = false;
+                if (!String.IsNullOrWhiteSpace(direction) && direction.ToLowerInvariant() == "asc")
                 {
-                    if (arguments[2] is string direction && direction.ToLowerInvariant() == "desc")
-                    {
-                        ascending = false;
-                    }
+                    ascending = true;
                 }
 
                 var array = JArray.FromObject(arguments[0]);
                 IOrderedEnumerable<JToken> sortedArray;
 
                 if (ascending)
-                    sortedArray = array.OrderBy(obj => obj[order]);
+                    sortedArray = array.OrderBy(obj => obj[propertyName]);
                 else
-                    sortedArray = array.OrderByDescending(obj => obj[order]);
+                    sortedArray = array.OrderByDescending(obj => obj[propertyName]);
 
                 foreach (var obj in sortedArray)
                 {
