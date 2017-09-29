@@ -1,8 +1,8 @@
 <p>Good Morning,</p>
 <p>I have started my work day.<br/>
 <ul>
-     <li>Start Time: {{currentTime 'Eastern Standard Time' 'h:m tt'}}</li>
-     <li>End Time:  {{addHours 'Eastern Standard Time' '12' 'h:m tt'}}</li>
+     <li>Start Time: {{currentTime 'Eastern Standard Time' 'h:mm tt'}}</li>
+     <li>End Time:  {{addHours 'Eastern Standard Time' '12' 'h:mm tt'}}</li>
      <li>Phone: 571-393-1415</li>
 </ul>
 </p>
