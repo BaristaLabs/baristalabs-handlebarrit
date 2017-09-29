@@ -16,7 +16,7 @@ Remote Work Tasks:<br/>
 </ul>
 </p>
 <p>
-It looks as though it's going to be a {{conditions}} day with {{rainChance}}% chance of rain.
+It looks as though it's going to be a {{conditions}} day with a high of {{temperatureHigh}} and a {{rainChance}}% chance of rain.
 </p>
 <p>
 Thanks,
