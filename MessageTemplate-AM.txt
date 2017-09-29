@@ -10,7 +10,7 @@
 <p>
 Remote Work Tasks:<br/>
 <ul>
-	{{#eachBySort tasks 'orderHint'}}
+	{{#eachBySort tasks 'orderHint' 'desc'}}
      <li>{{title}}</li>
 	{{/eachBySort}}
 </ul>
