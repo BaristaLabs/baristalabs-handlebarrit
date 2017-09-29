@@ -57,6 +57,11 @@ namespace BaristaLabs.Handlebarrit
 
                 template = requestBody?.template;
                 data = requestBody.data as JToken;
+                if (data is JArray dataAsArray)
+                {
+                    data = dataAsArray.First();
+                }
+
                 contentType = requestBody.contentType;
             }
 

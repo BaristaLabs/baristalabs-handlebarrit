@@ -4,7 +4,7 @@
 Today, I:<br/>
 <ul>
      {{#eachBySort tasks 'orderHint'}}
-     <li>{{Title}}</li>
+     <li>{{title}}</li>
 	{{/eachBySort}}
 </ul>
 </p>
