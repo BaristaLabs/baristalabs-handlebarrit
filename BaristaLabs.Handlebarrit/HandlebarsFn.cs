@@ -112,6 +112,63 @@ namespace BaristaLabs.Handlebarrit
                 writer.WriteSafeString(str.Humanize());
             });
 
+            Handlebars.RegisterHelper("currentTime", (writer, context, arguments) =>
+            {
+                if (arguments.Length < 1)
+                {
+                    throw new HandlebarsException("{{currentTime}} helper must have at least one argument.");
+                }
+
+                var dt = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById(arguments[0].ToString()));
+
+                var format = "";
+                if (arguments.Length > 2)
+                {
+                    format = arguments[1] as string ?? "";
+                }
+
+                var culture = CultureInfo.GetCultureInfo(1033);
+                if (arguments.Length > 3)
+                {
+                    var cultureName = arguments[2] as string;
+                    if (!string.IsNullOrEmpty(cultureName))
+                    {
+                        culture = new CultureInfo(cultureName);
+                    }
+                }
+
+                writer.WriteSafeString(dt.ToString(format, culture));
+            });
+
+            Handlebars.RegisterHelper("addHours", (writer, context, arguments) =>
+            {
+                if (arguments.Length < 2)
+                {
+                    throw new HandlebarsException("{{addHours}} helper must have at least two arguments.");
+                }
+
+                var dt = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById(arguments[0].ToString()));
+                dt = dt.AddHours(int.Parse(arguments[1] as string));
+                
+                var format = "";
+                if (arguments.Length > 3)
+                {
+                    format = arguments[2] as string ?? "";
+                }
+
+                var culture = CultureInfo.GetCultureInfo(1033);
+                if (arguments.Length > 4)
+                {
+                    var cultureName = arguments[3] as string;
+                    if (!string.IsNullOrEmpty(cultureName))
+                    {
+                        culture = new CultureInfo(cultureName);
+                    }
+                }
+
+                writer.WriteSafeString(dt.ToString(format, culture));
+            });
+
             Handlebars.RegisterHelper("format", (writer, context, arguments) =>
             {
                 if (arguments.Length <= 1)

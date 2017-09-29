@@ -1,0 +1,24 @@
+<p>Good Morning,</p>
+<p>I have started my work day.<br/>
+<ul>
+     <li>Start Time: {{currentTime 'Eastern Standard Time' 'hh:mm tt'}}</li>
+     <li>End Time:  {{addTime 'Eastern Standard Time' 'hh:mm tt'}}</li>
+     <li>Phone: 571-393-1415</li>
+</ul>
+</p>
+
+<p>
+Remote Work Tasks:<br/>
+<ul>
+	{{#eachBySort tasks 'orderHint'}}
+     <li>{{Title}}</li>
+	{{/eachBySort}}
+</ul>
+</p>
+<p>
+It looks as though it's going to be a {{conditions}} day with {{conditions}}% chance of rain.
+</p>
+<p>
+Thanks,
+</p>
+{{this}}

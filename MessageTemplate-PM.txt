@@ -1,0 +1,13 @@
+<p>Good Evening,</p>
+<p>I have completed my work day.</p>
+<p>
+Today, I:<br/>
+<ul>
+     {{#eachBySort tasks 'orderHint'}}
+     <li>{{Title}}</li>
+	{{/eachBySort}}
+</ul>
+</p>
+<p>
+Thanks,
+</p>
