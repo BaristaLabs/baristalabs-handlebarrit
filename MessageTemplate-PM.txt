@@ -1,7 +1,7 @@
 <p>Good Evening,</p>
 <p>I have completed my work day.</p>
 <p>
-Today, I:<br/>
+Remote Work Tasks:<br/>
 <ul>
      {{#eachBySort tasks 'orderHint' 'desc'}}
      <li>{{title}}</li>
