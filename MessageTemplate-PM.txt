@@ -3,7 +3,7 @@
 <p>
 Today, I:<br/>
 <ul>
-     {{#eachBySort tasks 'orderHint'}}
+     {{#eachBySort tasks 'orderHint' 'asc'}}
      <li>{{title}}</li>
 	{{/eachBySort}}
 </ul>
