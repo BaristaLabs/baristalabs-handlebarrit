@@ -175,18 +175,30 @@ namespace BaristaLabs.Handlebarrit
                 {
                     culture = new CultureInfo(cultureName);
                 }
-                
 
-                var date = arguments[0] as DateTime?;
-                if (date.HasValue)
+                string inputValue;
+                if (arguments[0] is JValue jValue)
                 {
-                    writer.WriteSafeString(date.Value.ToString(format, culture));
+                    inputValue = jValue.ToString();
+                }
+                else
+                {
+                    inputValue = arguments[0] as string;
                 }
 
-                var number = arguments[0] as decimal?;
-                if (number.HasValue)
+                if (String.IsNullOrWhiteSpace(inputValue))
                 {
-                    writer.WriteSafeString(number.Value.ToString(format, culture));
+                    return;
+                }
+
+                if (DateTime.TryParse(inputValue, culture, DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeLocal, out DateTime date))
+                {
+                    writer.WriteSafeString(date.ToString(format, culture));
+                }
+
+                if (Decimal.TryParse(inputValue, NumberStyles.Any, culture, out decimal number))
+                {
+                    writer.WriteSafeString(number.ToString(format, culture));
                 }
             });
 
