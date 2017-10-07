@@ -16,9 +16,25 @@ POST https://handlebarrit.azurewebsites.net/api/process/
 }
 ```
 
-Response:
+Response (text/html):
 "Hello, World!"
 
+It's also possible to change the response content-type via an aptly named contentType property
+
+``` JSON
+{
+	"template": "<?xml version=\"1.0\" encoding=\"utf-8\"?><message>{{message}}</message>",
+	"data": {
+		"message": "Hello, World!"
+	},
+	"contentType": "text/xml"
+}
+```
+
+Response (text/xml):
+<?xml version="1.0" encoding="utf-8"?>
+<message>Hello, World!</message>
+```
 --- 
 
 In addition to the Handlebars built-in helpers, the following helpers are available:
