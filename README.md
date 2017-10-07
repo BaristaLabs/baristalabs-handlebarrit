@@ -17,7 +17,9 @@ POST https://handlebarrit.azurewebsites.net/api/process/
 ```
 
 Response (text/html):
+```
 "Hello, World!"
+```
 
 It's also possible to change the response content-type via an aptly named contentType property
 
@@ -32,9 +34,10 @@ It's also possible to change the response content-type via an aptly named conten
 ```
 
 Response (text/xml):
+```
 <?xml version="1.0" encoding="utf-8"?>
 <message>Hello, World!</message>
-
+```
 --- 
 
 In addition to the Handlebars built-in helpers, the following helpers are available:
